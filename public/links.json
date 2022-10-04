@@ -1,9 +1,6 @@
 {
-  "links":
-    {
-      "dashboard": "http://de-th2-qa:30000/dashboard/#/workloads?namespace=default",
-      "grafana": "http://de-th2-qa:30000/grafana/?orgId=1",
-      "rabbitMq": "http://de-th2-qa:30000/rabbitmq/",
-      "infraEditor": "http://de-th2-qa:30000/editor/"
-    }
+  "dashboard": "http://de-th2-qa:30000/dashboard/#/workloads?namespace=default",
+  "grafana": "http://de-th2-qa:30000/grafana/?orgId=1",
+  "rabbitMq": "http://de-th2-qa:30000/rabbitmq/",
+  "infraEditor": "http://de-th2-qa:30000/editor/"
 }

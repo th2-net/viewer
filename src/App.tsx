@@ -3,6 +3,7 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import './App.scss';
+import SchemaSelect from './SchemaSelect';
 
 function App() {
 
@@ -10,26 +11,23 @@ function App() {
   const [linkObj, setLinkObj] = useState();
 
   const getLinks = () => { 
-    fetch('./links.json'
-    ,{
-      headers : { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-       }
-    }
-    )
-      .then(function(response){
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-        setLinkObj(data);
-      });
+    fetch('./links.json')
+      .then(response =>
+        response.json()
+      )
+      .then(data =>
+        setLinkObj(data)
+      );
   }
 
   useEffect(() => getLinks(), []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: string | undefined) => {
+    if (newValue === "http://de-th2-qa:30000/editor/") {
+      setIsVisible(true);
+    } else {
+      setIsVisible(false);
+    }
     setLink(newValue);
   };
 
@@ -41,6 +39,8 @@ function App() {
     };
   }
 
+  const [isVisible, setIsVisible] = useState(false);
+
   return (
       <div className="container">
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -48,9 +48,10 @@ function App() {
             <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
             <Tab label="Grafana" {...a11yProps(1)}  value={linkObj?.["grafana"]} />
             <Tab label="RabbitMQ" {...a11yProps(2)} value={linkObj?.["rabbitMq"]} />
-            <Tab label="InfraEditor" {...a11yProps(3)} value={linkObj?.["infraEditor"]} />
+            <Tab label="Infra Editor" {...a11yProps(3)} value={linkObj?.["infraEditor"]} />
           </Tabs>
         </Box>
+        <SchemaSelect isVisible={isVisible}/>
         <iframe src={link} title="app window" className="iframe" id="Iframe"/>
       </div>
   );

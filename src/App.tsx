@@ -22,15 +22,6 @@ function App() {
 
   useEffect(() => getLinks(), []);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: string | undefined) => {
-    if (newValue === "http://de-th2-qa:30000/editor/") {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-    setLink(newValue);
-  };
-
   function a11yProps(index: number) {
     return {
       id: `simple-tab-${index}`,
@@ -39,21 +30,26 @@ function App() {
     };
   }
 
-  const [isVisible, setIsVisible] = useState(false);
+  const handleChange = (event: React.SyntheticEvent, newValue: string | undefined) => {
+    setLink(newValue);
+  }
+  
 
   return (
       <div className="container">
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs onChange={handleChange} aria-label="basic tabs example">
-            <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
-            <Tab label="Grafana" {...a11yProps(1)}  value={linkObj?.["grafana"]} />
-            <Tab label="RabbitMQ" {...a11yProps(2)} value={linkObj?.["rabbitMq"]} />
-            <Tab label="Infra Editor" {...a11yProps(3)} value={linkObj?.["infraEditor"]} />
-          </Tabs>
-        </Box>
-        <SchemaSelect isVisible={isVisible}/>
-        <iframe src={link} title="app window" className="iframe" id="Iframe"/>
-      </div>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', flexDirection: "row" }}>
+        <Tabs onChange={handleChange} aria-label="basic tabs example">
+          <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
+          <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
+          <Tab label="Grafana" {...a11yProps(1)}  value={linkObj?.["grafana"]} />
+          <Tab label="RabbitMQ" {...a11yProps(2)} value={linkObj?.["rabbitMq"]} />
+          <Tab label="Infra Editor" {...a11yProps(3)} value={linkObj?.["infraEditor"] } />
+        </Tabs>
+        <SchemaSelect handleChange={ value => setLink(value)} schema={link}/>
+      </Box>
+      
+      <iframe src={link} title="app window" className="iframe" id="Iframe"/>
+    </div>
   );
 }
 

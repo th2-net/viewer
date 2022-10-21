@@ -46,3 +46,8 @@ html {
 body {
   overflow-x: auto;
 }
+
+.container {
+  display: flex;
+  align-items: center;
+}

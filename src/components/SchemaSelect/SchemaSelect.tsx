@@ -81,7 +81,7 @@ const SchemaSelect = (props: SchemaSelectProps<string>): JSX.Element => {
     });
   }
 
-  const serverErrorPattern = /4\d{2}/;
+  const serverErrorPattern = /5\d{2}/;
 
   useEffect(() => getSchemas(), []);
   useEffect(() => {
@@ -93,16 +93,17 @@ const SchemaSelect = (props: SchemaSelectProps<string>): JSX.Element => {
 
   return (
     <div>
-      {loading && <CircularProgress />}
       <FormControl sx={{ m: 1, width: 300 }}>
         {/* the word schema below doesn't fit in the border, also the options are a little shifted */}
-        <InputLabel id="demo-multiple-chip-label">Schema</InputLabel> 
+        <InputLabel id="demo-multiple-chip-label">Schema
+      {loading && <CircularProgress size={14} sx={{marginLeft:"5px"}}/>}
+        </InputLabel> 
         <Select
           labelId="demo-multiple-chip-label"
           id="demo-multiple-chip"
           value={props.schema}
           onChange={(event) => props.handleChange(event.target.value[2])}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          input={<OutlinedInput id="select-multiple-chip" label="Schema" />}
           renderValue={(selected) => (
             <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
               <div>
@@ -110,6 +111,7 @@ const SchemaSelect = (props: SchemaSelectProps<string>): JSX.Element => {
               </div>
             </Box>
           )}
+          disabled={loading}
           MenuProps={MenuProps}
         >
           {runningSchemas && runningSchemas.map((schema) => ( 

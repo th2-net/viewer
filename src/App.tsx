@@ -3,7 +3,8 @@ import React from 'react';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import './App.scss';
-import SchemaSelect from './SchemaSelect';
+import InfoDropdown from './components/InfoDropdown/InfoDropdown';
+import SchemaSelect from './components/SchemaSelect/SchemaSelect';
 
 function App() {
 
@@ -36,20 +37,22 @@ function App() {
   
 
   return (
-      <div className="container">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', flexDirection: "row" }}>
-        <Tabs onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
-          <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
-          <Tab label="Grafana" {...a11yProps(1)}  value={linkObj?.["grafana"]} />
-          <Tab label="RabbitMQ" {...a11yProps(2)} value={linkObj?.["rabbitMq"]} />
-          <Tab label="Infra Editor" {...a11yProps(3)} value={linkObj?.["infraEditor"] } />
-        </Tabs>
-        <SchemaSelect handleChange={ value => setLink(value)} schema={link}/>
-      </Box>
-      
-      <iframe src={link} title="app window" className="iframe" id="Iframe"/>
-    </div>
+      <div>
+        <nav className="container">
+          <Box sx={{ borderBottom: 1, borderColor: 'divider', display: 'flex', flexDirection: "row", alignItems: "center" }}>
+            <Tabs onChange={handleChange} aria-label="basic tabs example" >
+              <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
+              <Tab label="Dashboard" {...a11yProps(0)} value={linkObj?.["dashboard"]}  />
+              <Tab label="Grafana" {...a11yProps(1)}  value={linkObj?.["grafana"]} />
+              <Tab label="RabbitMQ" {...a11yProps(2)} value={linkObj?.["rabbitMq"]} />
+              <Tab label="Infra Editor" {...a11yProps(3)} value={linkObj?.["infraEditor"] } />
+            </Tabs>
+            <SchemaSelect handleChange={ value => setLink(value)} schema={link}/>
+            <InfoDropdown/>
+          </Box>
+        </nav>
+        <iframe src={link} title="app window" className="iframe" id="Iframe"/>
+      </div>
   );
 }
 
